@@ -2,15 +2,25 @@ module Main
 
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
+import IO;
 
+import Common;
+import Volume;
+
+/*
+ * Module Purpose: The Main module is used to define the main logic of the application
+ */
+
+// Create M3 models for each project
 M3 model = createM3FromEclipseProject(|project://Play|);
 
-public int returnNrMethods(M3 m)
+/*
+ * Purpose: The main function for the application;
+ * Return: void;
+ */
+public void main()
 {
-	
-}
-
-public M3 retM3() {
-	return model;
+	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(model));
+	println("Lines with code :: <ret["LinesWithCode"]>");
+	println("Lines with comments :: <ret["LinesWithComments"]>");
 }
