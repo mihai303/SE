@@ -15,14 +15,38 @@ public map[str, int] getTotalLinesOfCodeInFile(loc file)
 {
 	int linesWithCode     = 0;	
 	int linesWithComments = 0;
-	
+	str line;
+	bool inComment = false;
 	for (line <- readFileLines(file))
 	{
 		/*
 			TODO - Process each line - remve whitespace
 			Divide by totalLinesWithCode and totalLinesWithComments
 		*/
+		//trim("line");
+		//if(/^\/\// := line)
+		// {
+		// println("fara spatii")
+		// }
+		if(/\/\*/ := line){
+			inComment = true;
+		}
+		if (/\*\// := line)
+		{
+			inComment = false;
+			linesWithComments += 1;
+		}
+		
+		if (inComment || (/\/\// := line)) //|| (/\/\*/ := line && /\*\// := line
+		{
+			linesWithComments += 1;
+		}
 		linesWithCode += 1;
+		
+		//if (map(/\S+/ + /\/\//) := line )
+		//{
+		//
+		//}
 	}
 	
 	return ("LinesWithCode"     : linesWithCode ,

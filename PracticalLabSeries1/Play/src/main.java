@@ -1,6 +1,15 @@
-public class main
-{
-	public static void main(String[] args) {
-		System.out.println("Hello World!");
+public class main //jvghg
+{ /*efsffs*/
+//ghcfhc
+	public static void main(String[] args) { 
+/*
+  * 5g4dfgd	
+ */
+		System.out.println("Hello World!"); /*
+		njfgh
+		*/
 	}
+/* vsdgsdgsfs */
+	/* vsdgsdgsfs */
 }
+//ijo
