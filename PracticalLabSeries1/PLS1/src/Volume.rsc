@@ -1,5 +1,5 @@
 module Volume
-
+import Common;
 import Prelude;
 
 /*
@@ -9,44 +9,31 @@ import Prelude;
  /*
   *	Purpose: Compute the number of lines that contain code and the number of line that have comments;
   *          A a single java file location is processed;
-  * Return: A map between a string and an integer;
+  * Return:  A map between a string and an integer;
   */
 public map[str, int] getTotalLinesOfCodeInFile(loc file)
 {
 	int linesWithCode     = 0;	
 	int linesWithComments = 0;
-	str line;
-	bool inComment = false;
+	
+	map [str, str] results = ("retStr"    : "",
+	        	   "openMultilineComment" : "false",
+	        	   "increaseCommentCount" : "false");
+	        	   
 	for (line <- readFileLines(file))
 	{
-		/*
-			TODO - Process each line - remve whitespace
-			Divide by totalLinesWithCode and totalLinesWithComments
-		*/
-		//trim("line");
-		//if(/^\/\// := line)
-		// {
-		// println("fara spatii")
-		// }
-		if(/\/\*/ := line){
-			inComment = true;
-		}
-		if (/\*\// := line)
+		if (!isEmptyLine(line))
 		{
-			inComment = false;
-			linesWithComments += 1;
-		}
-		
-		if (inComment || (/\/\// := line)) //|| (/\/\*/ := line && /\*\// := line
-		{
-			linesWithComments += 1;
-		}
-		linesWithCode += 1;
-		
-		//if (map(/\S+/ + /\/\//) := line )
-		//{
-		//
-		//}
+			results = removeComments(line,results["openMultilineComment"]);
+
+			if (!isEmptyLine(results["retStr"]))
+				linesWithCode += 1;
+
+			if (results["increaseCommentCount"] == "true")
+			{
+				linesWithComments += 1;
+			}	
+		}			
 	}
 	
 	return ("LinesWithCode"     : linesWithCode ,

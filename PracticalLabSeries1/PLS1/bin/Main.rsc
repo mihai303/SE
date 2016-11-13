@@ -12,7 +12,8 @@ import Volume;
  */
 
 // Create M3 models for each project
-M3 model = createM3FromEclipseProject(|project://Play|);
+M3 PlayModel = createM3FromEclipseProject(|project://Play|);
+//M3 SmallSql = createM3FromEclipseProject(|project://smallsql0.21_src|);
 
 /*
  * Purpose: The main function for the application;
@@ -20,7 +21,7 @@ M3 model = createM3FromEclipseProject(|project://Play|);
  */
 public void main()
 {
-	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(model));
-	println("Lines with code :: <ret["LinesWithCode"]>");
+	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(PlayModel));
 	println("Lines with comments :: <ret["LinesWithComments"]>");
+	println("Lines with code :: <ret["LinesWithCode"]>");	
 }
