@@ -7,7 +7,7 @@ import IO;
 import Prelude;
 
 /*
- * Module Purpose: The Common module stores functionality that can is needed by multiple modules
+ * Module Purpose: The Common module stores functionality that is needed by multiple modules
  */
 
 /* Note : model@declarations -> rel[loc name,loc src];

@@ -6,6 +6,8 @@ import IO;
 
 import Common;
 import Volume;
+import SIGReport;
+import util::Benchmark;
 
 /*
  * Module Purpose: The Main module is used to define the main logic of the application
@@ -21,7 +23,9 @@ M3 PlayModel = createM3FromEclipseProject(|project://Play|);
  */
 public void main()
 {
+	real startTime = realTime() * 1.0;
 	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(PlayModel));
-	println("Lines with comments :: <ret["LinesWithComments"]>");
-	println("Lines with code :: <ret["LinesWithCode"]>");	
+	printVolumeReport(ret);
+	real endTime = realTime() * 1.0;
+	println("Execution time : <(endTime - startTime) / 1000> seconds");
 }
