@@ -7,6 +7,7 @@ import IO;
 import Common;
 import Volume;
 import SIGReport;
+import UnitSize;
 import util::Benchmark;
 
 /*
@@ -24,8 +25,9 @@ M3 PlayModel = createM3FromEclipseProject(|project://Play|);
 public void main()
 {
 	real startTime = realTime() * 1.0;
-	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(PlayModel));
-	printVolumeReport(ret);
+	//ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(SmallSql));
+	//printVolumeReport(ret);
+	iprintln(unitSizeRiskDistribution(getMethodsInModel(PlayModel)));
 	real endTime = realTime() * 1.0;
 	println("Execution time : <(endTime - startTime) / 1000> seconds");
 }

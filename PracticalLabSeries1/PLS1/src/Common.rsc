@@ -2,6 +2,7 @@ module Common
 
 import lang::java::m3::Core;
 import lang::java::jdt::m3::Core;
+import lang::java::jdt::m3::AST;
 import String;
 import IO;
 import Prelude;
@@ -9,6 +10,16 @@ import Prelude;
 /*
  * Module Purpose: The Common module stores functionality that is needed by multiple modules
  */
+
+
+/* Note : methods(model) -> set[loc];
+*  Purpose: Get the location of the Java methods in a model;
+*  Return: A list of method locations for a Java file;
+*/
+public list[loc] getMethodsInModel(M3 model)
+{
+	return [ location | location <- methods(model)];
+}
 
 /* Note : model@declarations -> rel[loc name,loc src];
 *  Purpose: Get the location of the Java files using the model declarations;
