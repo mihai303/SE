@@ -8,6 +8,7 @@ import Common;
 import Volume;
 import SIGReport;
 import UnitSize;
+import SIGRank;
 import util::Benchmark;
 
 /*
@@ -27,7 +28,7 @@ public void main()
 	real startTime = realTime() * 1.0;
 	//ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(SmallSql));
 	//printVolumeReport(ret);
-	iprintln(unitSizeRiskDistribution(getMethodsInModel(PlayModel)));
+	iprintln(unitSizeRank(unitSizeRiskDistribution(getMethodsInModel(PlayModel))));
 	real endTime = realTime() * 1.0;
 	println("Execution time : <(endTime - startTime) / 1000> seconds");
 }

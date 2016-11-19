@@ -8,19 +8,19 @@ import lang::java::jdt::m3::Core;
 import lang::java::jdt::m3::AST;
 
 private int lowRiskMin      = 1;
-private int lowRiskMax      = 10;
-private int moderateRiskMin = 11;
-private int moderateRiskMax = 20;
-private int highRiskMin     = 21;
-private int highRiskMax     = 50;
-private int veryHighRiskMin = 51;
+private int lowRiskMax      = 15;
+private int moderateRiskMin = 16;
+private int moderateRiskMax = 30;
+private int highRiskMin     = 31;
+private int highRiskMax     = 60;
+private int veryHighRiskMin = 61;
 
 public map[str, real] unitSizeRiskDistribution(list[loc] locations)
 {
-	results = ("veryHighRisk": 0,
-	           "highRisk": 0,
-	           "moderateRisk": 0,
-	           "lowRisk": 0,
+	results = ("very-high": 0,
+	           "high": 0,
+	           "moderate": 0,
+	           "low": 0,
 	           "totalLinesOfCode": 0);
 	           		
 	for (location <- locations)
@@ -36,10 +36,10 @@ public map[str, real] unitSizeRiskDistribution(list[loc] locations)
 public map[str, real] unitSizeAggregationByRank (map[str, int] results)
 {
 	
-	return ("veryHigh"     : results["veryHighRisk"] * 100.0 / results["totalLinesOfCode"],
-			"highRisk"     : results["highRisk"]     * 100.0 / results["totalLinesOfCode"],
-			"moderateRisk" : results["moderateRisk"] * 100.0 / results["totalLinesOfCode"],
-			"lowRisk"      : results["lowRisk"]      * 100.0 / results["totalLinesOfCode"]);
+	return ("very-high" : results["very-high"] * 100.0 / results["totalLinesOfCode"],
+			"high"      : results["high"]      * 100.0 / results["totalLinesOfCode"],
+			"moderate"  : results["moderate"]  * 100.0 / results["totalLinesOfCode"],
+			"low"       : results["low"]       * 100.0 / results["totalLinesOfCode"]);
 }
 
 private int getMethodLinesOfCode(loc method)
@@ -51,21 +51,21 @@ private str unitSizeRiskLevel(int linesOfCode)
 {
 	if (linesOfCode >= lowRiskMin && linesOfCode <= lowRiskMax)
 	{
-		return "lowRisk";
+		return "low";
 	}
 	else
 	if (linesOfCode >= moderateRiskMin && linesOfCode <= moderateRiskMax)
 	{
-		return "moderateRisk";
+		return "moderate";
 	}
 	else
 	if (linesOfCode >= highRiskMin && linesOfCode <= highRiskMax)
 	{
-		return "highRisk";
+		return "high";
 	}
 	else
 	if (linesOfCode >= veryHighRiskMin)
 	{
-		return "veryHighRisk";
+		return "very-high";
 	}
 }
