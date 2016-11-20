@@ -11,10 +11,18 @@ import Prelude;
  * Module Purpose: The Common module stores functionality that is needed by multiple modules
  */
 
+/* Note : classes(model) -> set[loc];
+*  Purpose: Get the location of the Java classes in a model;
+*  Return: A list of classes locations for Java files;
+*/
+public list[loc] getClassesInM3Model(M3 model)
+{
+	return [ location | location <- classes(model) ];
+}
 
 /* Note : methods(model) -> set[loc];
 *  Purpose: Get the location of the Java methods in a model;
-*  Return: A list of method locations for a Java file;
+*  Return: A list of method locations for Java files;
 */
 public list[loc] getMethodsInModel(M3 model)
 {
