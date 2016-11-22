@@ -15,6 +15,10 @@ private int highRiskMin     = 31;
 private int highRiskMax     = 60;
 private int veryHighRiskMin = 61;
 
+/*
+* Purpose: Computes the risk distribution
+*/
+
 public map[str, real] unitSizeRiskDistribution(list[loc] locations)
 {
 	results = ("very-high": 0,
@@ -29,7 +33,6 @@ public map[str, real] unitSizeRiskDistribution(list[loc] locations)
 		results[unitSizeRiskLevel(linesOfCode)] += linesOfCode;
 		results["totalLinesOfCode"] += linesOfCode;
 	}
-	iprintln(results);
 	return unitSizeAggregationByRank(results);
 }
 
@@ -42,10 +45,19 @@ public map[str, real] unitSizeAggregationByRank (map[str, int] results)
 			"low"       : results["low"]       * 100.0 / results["totalLinesOfCode"]);
 }
 
-private int getMethodLinesOfCode(loc method)
+/*
+* Purpose: Computes the number of lines of code stripped of comments within a method
+* Returns: The total number of code lines in a method - stripped of comments
+*/
+
+public int getMethodLinesOfCode(loc method)
 {
 	return getTotalLinesOfCodeInFile(method)["LinesWithCode"];
 }
+
+/*
+* Purpose: Computes the unit size risk level 
+*/
 
 private str unitSizeRiskLevel(int linesOfCode)
 {

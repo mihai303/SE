@@ -9,6 +9,8 @@ import Volume;
 import SIGReport;
 import UnitSize;
 import SIGRank;
+import Complexity;
+import Duplication;
 import util::Benchmark;
 
 /*
@@ -16,8 +18,8 @@ import util::Benchmark;
  */
 
 // Create M3 models for each project
-M3 PlayModel = createM3FromEclipseProject(|project://Play|);
-//M3 SmallSql = createM3FromEclipseProject(|project://smallsql0.21_src|);
+//M3 PlayModel = createM3FromEclipseProject(|project://Play|);
+M3 SmallSql = createM3FromEclipseProject(|project://smallsql0.21_src|);
 
 /*
  * Purpose: The main function for the application;
@@ -26,9 +28,11 @@ M3 PlayModel = createM3FromEclipseProject(|project://Play|);
 public void main()
 {
 	real startTime = realTime() * 1.0;
-	//ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(SmallSql));
-	//printVolumeReport(ret);
-	iprintln(unitSizeRank(unitSizeRiskDistribution(getMethodsInModel(PlayModel))));
+	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(SmallSql));
+	printVolumeReport(ret);
+	printUnitSizeReport(unitSizeRiskDistribution(getMethodsInModel(SmallSql)));
+	printComplexitySizeReport(complexityRiskDistribution(getMethodsInModel(SmallSql), SmallSql));
+	printDuplicationSizeReport(computeDuplication(getDuplicates(getClassesInM3Model(SmallSql))));
 	real endTime = realTime() * 1.0;
 	println("Execution time : <(endTime - startTime) / 1000> seconds");
 }

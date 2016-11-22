@@ -2,43 +2,47 @@ module SIGReport
 
 import Volume;
 import IO;
+import SIGRank;
 
-private str computeVolumeSIG(int linesOfCode)
-{
-	str ret;
-	if (linesOfCode >= 0 && linesOfCode <= 65999)
-	{
-		ret = "++";
-	}
-	else
-	if (linesOfCode >= 66000 && linesOfCode <= 245999)
-	{
-		ret = "+";
-	}
-	else
-	if (linesOfCode >= 246000 && linesOfCode <= 664999)
-	{
-		ret = "o";
-	}
-	else
-	if (linesOfCode >= 665000 && linesOfCode <= 1310000)
-	{
-		ret = "-";
-	}
-	else
-	if (linesOfCode > 1301000)
-	{
-		ret = "--";
-	}
-	
-	return ret;
-}
+/*
+* This module stores the report pretty printing methods.
+*/
 
 public void printVolumeReport(map[str, int] results)
 {
 	println("-------------------------------");
-	println("SIG Volume Score    : <computeVolumeSIG(results["LinesWithCode"])>");
+	println("SIG Volume Score    : <computeVolumeSIG(results["LinesWithCode"])> stars");
 	println("Lines of Code       : <results["LinesWithCode"]>");
 	println("Lines with comments : <results["LinesWithComments"]>");
+	println("-------------------------------");
+}
+
+public void printUnitSizeReport(map[str, real] results)
+{
+	println("-------------------------------");
+	println("SIG UnitScore Score    : <unitSizeSIGRank(results)> stars");
+	println("Very-High: <results["very-high"]> %");
+	println("High: <results["high"]> %");
+	println("Moderate: <results["moderate"]> %");
+	println("Low: <results["low"]> %");
+	println("-------------------------------");
+}
+
+public void printComplexitySizeReport(map[str, real] results)
+{
+	println("-------------------------------");
+	println("SIG Complexity Score    : <complexitySIGRank(results)> stars");
+	println("Very-High: <results["very-high"]> %");
+	println("High: <results["high"]> %");
+	println("Moderate: <results["moderate"]> %");
+	println("Low: <results["low"]> %");
+	println("-------------------------------");
+}
+
+public void printDuplicationSizeReport(real result)
+{
+	println("-------------------------------");
+	println("SIG Complexity Score    : <duplicationSIGRank(result)> stars");
+	println("Percentage of duplicated lines  : <result> %");
 	println("-------------------------------");
 }
