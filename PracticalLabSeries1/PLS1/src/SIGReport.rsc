@@ -20,7 +20,7 @@ public void printVolumeReport(map[str, int] results)
 public void printUnitSizeReport(map[str, real] results)
 {
 	println("-------------------------------");
-	println("SIG UnitScore Score    : <unitSizeSIGRank(results)> stars");
+	println("SIG UnitSize Score    : <unitSizeSIGRank(results)> stars");
 	println("Very-High: <results["very-high"]> %");
 	println("High: <results["high"]> %");
 	println("Moderate: <results["moderate"]> %");
