@@ -1,6 +1,7 @@
 module Volume
 import Common;
 import Prelude;
+import lang::csv::IO;
 
 /*
  * This module contais the functionality for the Volume characteristic
@@ -45,16 +46,26 @@ public map[str, int] getTotalLinesOfCodeInFile(loc file)
   *          Multiple java file location are processed;
   * Return: A map between a string and an integer;
   */
-public map[str, int] getTotalLinesOfCodeInProject(list[loc] locations)
+public map[str, int] getTotalLinesOfCodeInProject(list[loc] locations, bool generateReport)
 {
 	int linesWithCode = 0;
 	int linesWithComments = 0;
 	
+	rel[loc file, int linesWithCode, int linesWithComments, real percentage]
+	relation = {};
+		
 	for (file <- locations)
 	{
 		results = getTotalLinesOfCodeInFile(file);
 		linesWithCode += results["LinesWithCode"];
 		linesWithComments += results["LinesWithComments"];
+		if (generateReport)
+			relation += {<file, linesWithCode, linesWithComments, linesWithComments * 100.0 / linesWithCode>};
+	}
+	
+	if (generateReport)
+	{	
+		writeCSV(relation, |project://PLS1/src/volume.csv|);
 	}
 	
 	return ("LinesWithCode"     : linesWithCode,

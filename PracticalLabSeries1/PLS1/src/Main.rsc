@@ -20,7 +20,7 @@ import util::Benchmark;
 // Create M3 models for each project
 //M3 PlayModel = createM3FromEclipseProject(|project://Play|);
 M3 SmallSql = createM3FromEclipseProject(|project://smallsql0.21_src|);
-
+//M3 HSSql = createM3FromEclipseProject(|project://hsqldb-2.3.1|);
 /*
  * Purpose: The main function for the application;
  * Return: void;
@@ -28,11 +28,11 @@ M3 SmallSql = createM3FromEclipseProject(|project://smallsql0.21_src|);
 public void main()
 {
 	real startTime = realTime() * 1.0;
-	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(SmallSql));
-	printVolumeReport(ret);
-	printUnitSizeReport(unitSizeRiskDistribution(getMethodsInModel(SmallSql)));
-	printComplexitySizeReport(complexityRiskDistribution(getMethodsInModel(SmallSql), SmallSql));
-	printDuplicationSizeReport(computeDuplication(getDuplicates(getClassesInM3Model(SmallSql))));
+	ret = getTotalLinesOfCodeInProject(getAllJavaFilesLocation(SmallSql),true);
+	//printVolumeReport(ret);
+	//printDuplicationSizeReport(computeDuplication(getDuplicates(getClassesInM3Model(HSSql))));
+	//printComplexitySizeReport(complexityRiskDistribution(getMethodsInModel(SmallSql), SmallSql));
+	//printUnitSizeReport(unitSizeRiskDistribution(getMethodsInModel(HSSql)));
 	real endTime = realTime() * 1.0;
 	println("Execution time : <(endTime - startTime) / 1000> seconds");
 }
