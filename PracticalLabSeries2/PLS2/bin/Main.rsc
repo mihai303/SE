@@ -1,0 +1,25 @@
+module Main
+
+import Prelude;
+import util::Benchmark;
+import lang::java::m3::Core;
+import lang::java::jdt::m3::Core;
+import lang::java::m3::AST;
+
+import Common;
+import TypeOneCloneDetection;
+
+loc CloneDetectionProject = |project://CloneDetection|;
+M3 cloneDetectionModel = createM3FromEclipseProject(CloneDetectionProject);
+/*
+ * Purpose: The main function for the application;
+ * Return: void;
+ */
+
+public void main()
+{
+	real startTime = realTime() * 1.0;
+	checkType1Clones(getAllJavaFilesLocation(cloneDetectionModel), 3, true);
+	real endTime = realTime() * 1.0;
+	println("Execution time : <(endTime - startTime) / 1000> seconds");
+}

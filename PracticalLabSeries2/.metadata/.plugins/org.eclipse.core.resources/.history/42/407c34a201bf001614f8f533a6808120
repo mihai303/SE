@@ -1,0 +1,126 @@
+module TypeOneCloneDetection
+
+import IO;
+import Common;
+import Prelude;
+import List;
+import Report;
+
+/*
+ * Module Purpose: The TypeOneCloneDetection module stores functionality that is needed to detect type one clones
+ */
+ 
+/*
+* Purpose: Computes the md5sum for a file
+* Returns: A string with the md5sum hash.
+*/
+private str getMd5Hash(list[str] lines)
+{
+	writeFile(|project://PLS2/src/buffer|,lines);
+	return md5HashFile(|project://PLS2/src/buffer|);
+}
+
+//private str concatenateLines(list[str] lines)
+//{
+//	str line = "";
+//	for (i <- lines)
+//	{
+//		line += i;
+//	}
+//	return line;
+//}
+
+private void mapPrint(list[map[str, loc]] mapHash)
+{
+	for (element <- mapHash)
+	{
+		println(element);
+		//println(key);
+		//println(mapHash[key]);
+	}
+}
+
+private str getLocationMapKey(map[str, loc] mapElement)
+{
+	for (key <- mapElement)
+	{
+		return key;
+	}
+}
+
+public void checkType1Clones(list[loc] javaFileLocations, int cloneLenght, bool report)
+{
+	list [map[str, loc]] locationHashList = [];
+	for (location <- javaFileLocations)
+	{
+		locationHashList += computeHashesforJavaFile(location);
+	}
+	
+	list[list[int]] indexes = [];
+	for (mapElement <- locationHashList)
+	{
+		list[int] tmpList = [];
+		key = getLocationMapKey(mapElement);
+		int index = 0;
+		
+		for (i <- [0..size(locationHashList)])
+		{
+			if (key == getLocationMapKey(locationHashList[i]))
+			{
+				tmpList += i;
+			}
+		}
+		
+		if (size(tmpList) > 1 && tmpList notin indexes)
+		{
+			indexes += [tmpList];
+		}
+	}
+	
+	iprintln(indexes);
+	
+	int depth = size(indexes) - 1;
+	println("------------");
+	println(depth);
+	list[list[int]] mapping = [];
+	for (i <- [0..size(indexes[0])])
+	{
+		list[int] buffer = [];
+		int indexValue = indexes[0][i];
+		buffer += indexValue;
+		for (j <- [0..depth])
+		{
+			if (indexValue + j + 1 in indexes[j+1])
+			{
+				buffer += indexValue + j +  1; 
+			}
+		}
+		mapping += [buffer];
+		buffer = [];
+		
+	}
+	iprintln("-------------");
+	iprintln(mapping);
+	
+	if (report)
+		printReport(locationHashList, );
+}
+
+public list [map[str, loc]] computeHashesforJavaFile(loc javaFileLocation)
+{
+	list[map[str, loc]] javaFileHashMap = [];
+	int currentLine = 1;
+	
+	for (line <- readFileLines(javaFileLocation))
+	{			
+		if (!isEmptyLine(line))
+		{
+			line = replaceAll(trim(line), " ","");
+			javaFileHashMap += (line: customLocation(javaFileLocation ,
+			                                         currentLine, 
+			                                         currentLine));												
+		}
+		currentLine += 1;
+	}
+	return javaFileHashMap;
+}

@@ -1,0 +1,14 @@
+public class CloneDetectionFile1
+{
+	public void test1() {
+		int a = 1;
+		int b = 2;
+		int c = 3;
+	}
+
+	public void test2() {
+		int a = 1;
+		int b = 2;
+		int c = 3;
+	}
+}

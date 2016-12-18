@@ -1,0 +1,16 @@
+public class CloneDetectionFile2
+{
+
+public void test1() {
+	A
+	B
+	C
+}
+
+public void test1() {
+	A
+	B
+	C
+}
+
+}
